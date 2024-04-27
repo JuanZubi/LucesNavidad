@@ -1384,10 +1384,6 @@ async def bucle_wan_async (tiempo_bucle_STA_ms):
                         if printa : print(s1,"************ CONECTADO en modo WAN como IP:",ip, "a ",red_ip)
                         await led_toggle_async(ms=200,veces=4)              
                         conn=True
-                        
-                        ota()
-                        
-
                         await led_np2_async(color=AZUL,intensidad=intensidad_np, ton=0.1,toff=0.1,veces=5)
                         break
             if conn == True:
