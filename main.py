@@ -13,4 +13,4 @@ def tick(timer):
     """
     led.toggle()
     
-tim.init(period=500, mode=machine.Timer.PERIODIC, callback=tick)
+tim.init(period=50, mode=machine.Timer.PERIODIC, callback=tick)
