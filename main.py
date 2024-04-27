@@ -1,5 +1,5 @@
 
-Vers="Vers: 27ABRIL24"
+Vers="Vers: GH27ABRIL24"
 print("PROGRAMA DE CONTROL DE LUCES DE NAVIDAD\n Zubi\n", Vers)
 """
 #########################
