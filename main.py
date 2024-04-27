@@ -1,5 +1,5 @@
 
-Vers="Vers: 2xABRIL24"
+Vers="Vers: 27ABRIL24"
 print("PROGRAMA DE CONTROL DE LUCES DE NAVIDAD\n Zubi\n", Vers)
 """
 #########################
@@ -1330,10 +1330,7 @@ async def wan_connect (i):
             wdt.feed()
     await asyncio.sleep_ms(2)
 
-def ota():
-    ota_updater = OTAUpdater(datos_ini.firmware_url, "main.py")
-    ota_updater.download_and_install_update_if_available()
-                        
+     
     
 async def bucle_wan_async (tiempo_bucle_STA_ms):
     global ip, puerto_http, wifi, ap, red_ip, modo_WAN
@@ -1528,6 +1525,7 @@ async def serve_client(reader, writer):
 
 
 
+
 async def bucle_url_requests(tiempo_bucle):
     #Bucle para consulta a URL
     global offset_UTC
@@ -1536,8 +1534,13 @@ async def bucle_url_requests(tiempo_bucle):
             await asyncio.sleep_ms(3000) 
         if wifi.isconnected() == True:
             if modo_WAN == "STA" or modo_WAN == "APWAN0":
+                #puesta en hora
                 if dispositivos_i2cx != [0]: # previene que no haya nada en i2c
                     offset_UCT = test_setds3231.time_get_and_set(dispositivos_i2cx, ds, reset_ds= False)
+                # On The Air
+                ota_updater = OTAUpdater(datos_ini.firmware_url, "main.py")
+                ota_updater.download_and_install_update_if_available()
+                          
             await asyncio.sleep_ms(tiempo_bucle)
                 
 async def cuenta_segundos():
