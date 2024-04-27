@@ -102,7 +102,7 @@ except:
     PI_PICO_WLAN = False #el circuito es Raspberry Pi Pico sin capacidad WLAN
     led  = machine.Pin(25, machine.Pin.OUT, value=1)
     VBUS = machine.Pin(24,machine.Pin.IN)
-
+from ota import OTAUpdater
 
 
 # DEFINICIONES HARDWARE
@@ -1330,7 +1330,10 @@ async def wan_connect (i):
             wdt.feed()
     await asyncio.sleep_ms(2)
 
-    
+def ota():
+    ota_updater = OTAUpdater(datos_ini.firmware_url, "main.py")
+    ota_updater.download_and_install_update_if_available()
+                        
     
 async def bucle_wan_async (tiempo_bucle_STA_ms):
     global ip, puerto_http, wifi, ap, red_ip, modo_WAN
@@ -1384,6 +1387,10 @@ async def bucle_wan_async (tiempo_bucle_STA_ms):
                         if printa : print(s1,"************ CONECTADO en modo WAN como IP:",ip, "a ",red_ip)
                         await led_toggle_async(ms=200,veces=4)              
                         conn=True
+                        
+                        ota()
+                        
+
                         await led_np2_async(color=AZUL,intensidad=intensidad_np, ton=0.1,toff=0.1,veces=5)
                         break
             if conn == True:
